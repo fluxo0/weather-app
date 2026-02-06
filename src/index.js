@@ -1,4 +1,5 @@
 import "./styles.css";
+import { render } from './render.js';
 
 // - search for location
 // - toggle between Fahrenheit or Celsius
@@ -12,9 +13,6 @@ import "./styles.css";
 
 const search = document.getElementById('search');
 const submit = document.getElementById('submit');
-const img = document.querySelector('img');
-
-// let fahrenheit, celsius;
 
 submit.addEventListener('click', (e) => {
     e.preventDefault();
@@ -22,47 +20,31 @@ submit.addEventListener('click', (e) => {
 });
 
 async function getWeather(location) {
-    const response = await fetch(
-        `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&key=9VDZNLC8LA3ZB2WS8V64FJ3KR&contentType=json`);
-    const weatherData = await response.json();
-    processJson(weatherData);
-
-    // const description = weatherData.description;
-    // const conditions = weatherData.currentConditions.conditions;
-    // const fahrenheitTemp = weatherData.currentConditions.temp;
-    // const celsiusTemp = (fahrenheitTemp - 32) / 1.8;
-
-    // console.log(weatherData);
-    // console.log(description);
-    // console.log(conditions);
-    // console.log(Math.round(fahrenheitTemp));
-    // console.log(Math.round(celsiusTemp));
+    try {
+        const response = await fetch(
+            `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&key=9VDZNLC8LA3ZB2WS8V64FJ3KR&contentType=json`);
+        const weatherData = await response.json();
+        const weather = await processJson(weatherData);
+        render(weather);
+    } catch (err) {
+        console.log(err);
+    }
 }
-
-// async function getGif(weather) {
-//     const response = await fetch(
-//         `https://api.giphy.com/v1/gifs/translate?api_key=nAF1u1OjJoALsK8vcBtXs5WheYsQNbly&s=weather ${weather}`);
-//     const gifData = await response.json();
-//     img.src = gifData.data.images.original.url;  
-
-//     console.log(gifData);
-// }
 
 function processJson(data) {
     const fahrenheitTemp = data.currentConditions.temp;
     const celsiusTemp = (fahrenheitTemp - 32) / 1.8;
-
+    
     const weather = {
+        resolvedAddress: data.resolvedAddress,
         description: data.description,
         conditions: data.currentConditions.conditions,
         fahrenheit: Math.round(fahrenheitTemp),
         celsius: Math.round(celsiusTemp),
-    }
-    console.log(weather);
+    };
 
-    // return weather;
+    return weather;
 }
 
-// getWeather('São Paulo');
-// getGif('Cloudy');
+
 
