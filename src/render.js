@@ -1,3 +1,4 @@
+const body = document.querySelector('body');
 const resolvedAddress = document.getElementById('resolvedAddress');
 const conditions = document.getElementById('conditions');
 const description = document.getElementById('description');
@@ -6,8 +7,9 @@ const gif = document.getElementById('gif');
 const icon = document.getElementById('icon');
 
 export function render(weather, format) {
+    showContainers();
+
     loadIcon(weather.icon).then(result => {
-        console.log(result);
         icon.src = result;
     });
 
@@ -22,6 +24,8 @@ export function render(weather, format) {
     } else {
         temp.textContent = `${weather.celsius}°C`;
     }
+
+    renderBackgroundColor(weather.celsius);
 }
 
 async function loadGif(weather) {
@@ -42,6 +46,25 @@ async function loadIcon(weather) {
     } catch (err) {
         console.log(err);
     }
+}
+
+function renderBackgroundColor(celsius) {
+    if (celsius <= 0) {
+        body.style.setProperty('background-color', '#d0d0d0');
+    } else if (celsius > 0 && celsius <= 20) {
+        body.style.setProperty('background-color', '#3f3fff');
+    } else if (celsius > 20 && celsius < 30) {
+        body.style.setProperty('background-color', '#eeee61');
+    } else {
+        body.style.setProperty('background-color', '#f7ab20');
+    }
+}
+
+function showContainers() {
+    const leftCtnr = document.getElementById('left-container');
+    leftCtnr.style.setProperty('display', 'flex');
+    const rightCtnr = document.getElementById('right-container');
+    rightCtnr.style.setProperty('display', 'flex');
 }
 
 

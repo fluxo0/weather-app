@@ -1,15 +1,6 @@
-import "./styles.css";
+import './font.css';
+import './styles.css';
 import { render } from './render.js';
-
-// - search for location
-// - toggle between Fahrenheit or Celsius
-// - background color based on data
-// - Giphy API imgs based on weather
-// - use promeises and async/await
-
-// take location function
-// return weather data from location function
-// console.log it
 
 const search = document.getElementById('search');
 const submit = document.getElementById('submit');

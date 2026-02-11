@@ -1,26 +1,30 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather App</title>
-  </head>
-  <body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather App</title>
+</head>
+
+<body>
+  <div id="page-container">
     <div id="top-container">
       <form novalidate>
-        <label for="search">Enter a location</label>
-        <input type="search" id="search" placeholder="Location" />
-
-        <button type="submit" id="submit">Submit</button>
+        <label for="search">Enter a location:</label>
+        <div id="search-ctnr">
+          <input type="search" id="search" placeholder="Location" />
+          <button type="submit" id="submit"></button>
+        </div>
       </form>
     </div>
 
-    <div id="left-container">
+    <div id="left-container" style="display: none;">
       <div id="weather-data">
-        <div id="resolvedAddress"></div>
-        <div id="conditions"></div>
-        <div id="description"></div>
-        <div id="temp"></div>
+        <p id="resolvedAddress"></p>
+        <p id="conditions"></p>
+        <p id="description"></p>
+        <p id="temp"></p>
       </div>
       <div id="more-info">
         <button id="format-btn" class="fahrenheit">°C</button>
@@ -28,8 +32,10 @@
       </div>
     </div>
 
-    <div id="right-container">
+    <div id="right-container" style="display: none;">
       <img src="#" alt="" id="gif" />
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
